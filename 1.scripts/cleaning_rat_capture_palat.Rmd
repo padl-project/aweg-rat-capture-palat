@@ -1,0 +1,40 @@
+---
+title: "Cleaning Rat Capture Palatability data"
+author: "Camila Vargas"
+date: "1/25/2022"
+output: html_document
+---
+
+## Set up
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+## Load packages
+library(here)
+library(tidyverse)
+library(janitor)
+library(readxl)
+library(freeR)
+
+## Sets R not to use scientific notations
+options(scipen=999) 
+
+raw_data_path <- here::here("6.raw_data/")
+```
+
+## Exploring data
+```{r}
+
+excel_sheets(here::here("6.raw_data/Rat Capture_Palatability.xlsx"))
+
+```
+
+9 sheets found. According to Alex we only need Rt palatability (errors remved)
+
+## Read data
+```{r}
+data_raw <- read_excel(here::here("6.raw_data/Rat Capture_Palatability.xlsx"), sheet = "Rt Palatability (errors removd)") %>% 
+  clean_names()
+```
+
