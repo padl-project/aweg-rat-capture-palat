@@ -1,2 +1,3 @@
-# template-repo
-Each data package should have its own repo based on the structure of this repository. Here are all the foldes and necesary files to download/upload data to our Drive, and create the EML and folders according to file paths in the differet scripts.
+# aweg-rat-capture-palat 
+This repo looks into the Alex Wegmann raw data on Rat Capture Palatability. Data from Palmyra Atoll.
+The goal is to QA/QC data and organize it into FAIR format to publish in the Environmental Data Initiative repository.
