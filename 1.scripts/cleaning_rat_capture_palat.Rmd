@@ -20,7 +20,6 @@ library(freeR)
 ## Sets R not to use scientific notations
 options(scipen=999) 
 
-raw_data_path <- here::here("6.raw_data/")
 ```
 
 ## Exploring data
@@ -30,11 +29,41 @@ excel_sheets(here::here("6.raw_data/Rat Capture_Palatability.xlsx"))
 
 ```
 
-9 sheets found. According to Alex we only need Rt palatability (errors remved)
+9 sheets found. According to Alex we only need Rt palatability (errors removed)
 
 ## Read data
 ```{r}
 data_raw <- read_excel(here::here("6.raw_data/Rat Capture_Palatability.xlsx"), sheet = "Rt Palatability (errors removd)") %>% 
   clean_names()
 ```
+
+
+## QA/QC
+```{r}
+str(data_raw)
+
+d_unique <- data_raw %>% 
+  select(where(is.character)) %>%
+  map(~unique(.x))
+
+d_unique[1]
+d_unique[2]
+d_unique[3]
+d_unique[4]
+d_unique[5]
+d_unique[6]
+d_unique[7] ##tx_taste: should be numeric but has an "na"
+d_unique[8] ##r_tx_taste: should be numeric but has an "na"
+d_unique[9] ##tx_consumption: should be numeric but has an "na" and "eating at end of tape"
+d_unique[10] ##consumption_rank:should be numeric but has an "na"
+d_unique[11] ##r_tx_consumption:should be numeric but has an "na"
+d_unique[12] ## percent_remaining: should be numeric but has an "na"
+d_unique[13] ## percent_consumed: should be numeric but has an "#VALUE!"
+d_unique[14] ##tx_cons_sec:should be numeric but has an "#VALUE!"
+
+
+```
+
+
+
 
