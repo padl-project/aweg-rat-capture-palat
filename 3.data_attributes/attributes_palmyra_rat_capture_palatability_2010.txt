@@ -1,0 +1,21 @@
+attributeName	attributeDefinition	class	unit	dateTimeFormatString	missingValueCode	missingValueCodeExplanation
+date		Date		!Add datetime specifier here!		
+rat		numeric	!Add units here!			
+treatment		categorical				
+location		categorical				
+sex		categorical				
+wt_g		numeric	!Add units here!			
+tx_start		character				
+factor		character				
+food		categorical				
+position		numeric	!Add units here!			
+tx_taste		numeric	!Add units here!			
+taste_rank		numeric	!Add units here!			
+r_tx_taste		numeric	!Add units here!			
+tx_consumption		numeric	!Add units here!			
+consump_rank		numeric	!Add units here!			
+r_tx_consumption		numeric	!Add units here!			
+percent_remaining		numeric	!Add units here!			
+percent_consumed		numeric	!Add units here!			
+tx_cons_sec		numeric	!Add units here!			
+notes		character				

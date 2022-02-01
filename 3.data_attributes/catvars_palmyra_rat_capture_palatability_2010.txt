@@ -1,0 +1,20 @@
+attributeName	code	definition
+food	25W	
+food	Coconut	
+food	D50	
+food	Meristem	
+food	Pandanus	
+location	Aviation	
+location	Barren	
+location	Camp	
+location	Eastern	
+location	Fern	
+location	NSC	
+location	Paradise	
+location	Sand	
+location	SOTE	
+sex	F	
+sex	M	
+sex	NA	
+treatment	25W	
+treatment	D50	

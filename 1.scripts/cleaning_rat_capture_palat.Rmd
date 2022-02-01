@@ -16,6 +16,7 @@ library(tidyverse)
 library(janitor)
 library(readxl)
 library(freeR)
+library(lubridate)
 
 ## Sets R not to use scientific notations
 options(scipen=999) 
@@ -29,7 +30,7 @@ excel_sheets(here::here("6.raw_data/Rat Capture_Palatability.xlsx"))
 
 ```
 
-9 sheets found. According to Alex we only need Rt palatability (errors removed)
+9 sheets found. According to Alex we only need Rt Palatability (errors removed)
 
 ## Read data
 ```{r}
@@ -42,6 +43,7 @@ data_raw <- read_excel(here::here("6.raw_data/Rat Capture_Palatability.xlsx"), s
 ```{r}
 str(data_raw)
 
+## getting unique values for all character columns 
 d_unique <- data_raw %>% 
   select(where(is.character)) %>%
   map(~unique(.x))
@@ -49,11 +51,11 @@ d_unique <- data_raw %>%
 d_unique[1]
 d_unique[2]
 d_unique[3]
-d_unique[4]
+d_unique[4] ## wt_g: should be numeric but has a "-" value
 d_unique[5]
-d_unique[6]
-d_unique[7] ##tx_taste: should be numeric but has an "na"
-d_unique[8] ##r_tx_taste: should be numeric but has an "na"
+d_unique[6] ##tx_taste: should be numeric but has an "na"
+d_unique[7] ##taste_rank: should be numeric but has an "na"
+d_unique[8] ##r_tx_taste: should be numeric but has an "na" and "#VALUE!"
 d_unique[9] ##tx_consumption: should be numeric but has an "na" and "eating at end of tape"
 d_unique[10] ##consumption_rank:should be numeric but has an "na"
 d_unique[11] ##r_tx_consumption:should be numeric but has an "na"
@@ -61,9 +63,32 @@ d_unique[12] ## percent_remaining: should be numeric but has an "na"
 d_unique[13] ## percent_consumed: should be numeric but has an "#VALUE!"
 d_unique[14] ##tx_cons_sec:should be numeric but has an "#VALUE!"
 
+complete(data_raw)
 
 ```
 
 
+## Fixing issues
+```{r}
 
+data_clean <- data_raw %>%
+  mutate(notes = case_when(tx_consumption == "eating at end of tape" ~ "eating at end of tape"),
+         tx_consumption = case_when(tx_consumption == "eating at end of tape" ~ "na",
+                                    T ~ tx_consumption),
+         wt_g = case_when(wt_g != "-" ~ wt_g) %>% as.numeric(.)) %>% 
+  mutate(across(11:19, ~replace(., . == "na" , NA)),
+         across(11:19, ~replace(., . == "#VALUE!" , NA)),
+         across(11:19, ~as.numeric(.))) %>% 
+  mutate(tx_start = format(as.POSIXct(tx_start), format = "%H:%M:%S"),
+         factor = format(as.POSIXct(factor), format = "%H:%M:%S"))
+
+## checking
+str(data_clean)
+
+```
+
+## Save data
+```{r}
+write_csv(data_clean, here::here("7.clean_data/palmyra_rat_capture_palatability_2010.csv"))
+```
 
