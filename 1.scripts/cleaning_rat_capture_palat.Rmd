@@ -80,7 +80,8 @@ data_clean <- data_raw %>%
          across(11:19, ~replace(., . == "#VALUE!" , NA)),
          across(11:19, ~as.numeric(.))) %>% 
   mutate(tx_start = format(as.POSIXct(tx_start), format = "%H:%M:%S"),
-         factor = format(as.POSIXct(factor), format = "%H:%M:%S"))
+         factor = format(as.POSIXct(factor), format = "%H:%M:%S"),
+         date = date(date))
 
 ## checking
 str(data_clean)
